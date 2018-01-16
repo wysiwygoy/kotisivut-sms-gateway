@@ -39,7 +39,7 @@ class ZonerSmsGatewayChannel
 
         // Otherwise use the receiver given by notifiable:
         if (empty($receiver)) {
-            $receiver = $notifiable->routeNotificationFor(ZonerSmsGatewayChannel::class);
+            $receiver = $notifiable->routeNotificationFor(self::class);
         }
 
         // As the last resort, try to get the phone_number attribute from notifiable:
