@@ -179,6 +179,20 @@ class ZonerSmsGatewayChannelTest extends TestCase
     /**
      * @test
      */
+    public function dontDoAnythingIfReceiverCannotBeDetermined() {
+        $this->setUpWithResponses([
+            new Response(200, [], 'OK 1231234'),
+        ]);
+
+        $notifiable = new NotifiableWithNothing();
+        $this->channel->send($notifiable, $this->notification);
+
+        $this->assertEmpty($this->transactions);
+    }
+
+    /**
+     * @test
+     */
     public function returnsTrackingCodeOnSuccessfulSend()
     {
         $this->setUpWithResponses([
@@ -250,6 +264,11 @@ class NotifiableWithPhoneNumber
     use Notifiable;
 
     public $phone_number = 'receiver-from-notifiable-phone-number'; // Should be a phone number in reality
+}
+
+class NotifiableWithNothing
+{
+    use Notifiable;
 }
 
 class NotificationThatDefinesSenderInMessage extends Notification

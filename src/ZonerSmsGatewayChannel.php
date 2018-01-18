@@ -53,7 +53,7 @@ class ZonerSmsGatewayChannel
         }
 
         if (empty($receiver)) {
-            throw CouldNotSendNotification::receiverNotProvided();
+            return; // Give up
         }
 
         return $this->gateway->sendMessage($receiver, trim($message->content), $message->sender);
