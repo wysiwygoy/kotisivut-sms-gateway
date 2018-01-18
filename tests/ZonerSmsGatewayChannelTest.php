@@ -41,7 +41,7 @@ class ZonerSmsGatewayChannelTest extends TestCase
         $history = Middleware::history($this->transactions);
         $handler->push($history);
 
-        $this->notifiable = new NotifiableWithRouting();
+        $this->notifiable = new NotifiableWithRouteNotificationForZonerSmsGateway();
         $this->notification = new NotificationThatDoesNotDefineReceiverInMessage();
 
         $httpClient = new HttpClient(['handler' => $handler]);
@@ -143,19 +143,19 @@ class ZonerSmsGatewayChannelTest extends TestCase
     /**
      * @test
      */
-    public function usesReceiverFromNotifiableRoutingWhenNotSetInMessage()
+    public function usesReceiverFromNotifiableRouteNotificationForZonerSmsGateway()
     {
         $this->setUpWithResponses([
             new Response(200, [], 'OK 1231234'),
         ]);
 
-        $notifiable = new NotifiableWithRouting();
+        $notifiable = new NotifiableWithRouteNotificationForZonerSmsGateway();
         $this->channel->send($notifiable, $this->notification);
 
         $transaction = $this->transactions[0];
         $request = $transaction['request'];
 
-        $this->assertRegExp('/numberto=receiver-from-notifiable-routing/', (string) $request->getBody());
+        $this->assertRegExp('/numberto=receiver-from-notifiable-routeNotificationForZonerSmsGateway/', (string) $request->getBody());
     }
 
     /**
@@ -219,7 +219,7 @@ class ZonerSmsGatewayChannelTest extends TestCase
     }
 }
 
-class NotifiableWithRouting
+class NotifiableWithRouteNotificationForZonerSmsGateway
 {
     use Notifiable;
 
@@ -228,7 +228,20 @@ class NotifiableWithRouting
      */
     public function routeNotificationForZonerSmsGateway()
     {
-        return 'receiver-from-notifiable-routing'; // Should be a phone number in reality
+        return 'receiver-from-notifiable-routeNotificationForZonerSmsGateway'; // Should be a phone number in reality
+    }
+}
+
+class NotifiableWithRouteNotificationFor
+{
+    use Notifiable;
+
+    /**
+     * @return string
+     */
+    public function routeNotificationFor($driver)
+    {
+        return 'receiver-from-notifiable-routeNotificationFor'; // Should be a phone number in reality
     }
 }
 

@@ -37,7 +37,12 @@ class ZonerSmsGatewayChannel
         // Use the receiver from message, if defined:
         $receiver = $message->receiver;
 
-        // Otherwise use the receiver given by notifiable:
+        // Otherwise use the receiver given by notifiable routeNotificationForZonerSmsGateway:
+        if (empty($receiver) && method_exists($notifiable, 'routeNotificationForZonerSmsGateway')) {
+            $receiver = $notifiable->routeNotificationForZonerSmsGateway();
+        }
+
+        // Otherwise use the receiver given by notifiable generic routing method:
         if (empty($receiver)) {
             $receiver = $notifiable->routeNotificationFor(self::class);
         }
