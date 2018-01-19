@@ -179,7 +179,8 @@ class ZonerSmsGatewayChannelTest extends TestCase
     /**
      * @test
      */
-    public function dontDoAnythingIfReceiverCannotBeDetermined() {
+    public function dontDoAnythingIfReceiverCannotBeDetermined()
+    {
         $this->setUpWithResponses([
             new Response(200, [], 'OK 1231234'),
         ]);
