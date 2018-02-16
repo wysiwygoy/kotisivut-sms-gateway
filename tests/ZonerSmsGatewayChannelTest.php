@@ -207,7 +207,7 @@ class ZonerSmsGatewayChannelTest extends TestCase
 
     /**
      * @test
-     * @expectedException NotificationChannels\ZonerSmsGateway\Exceptions\CouldNotSendNotification
+     * @expectedException NotificationChannels\ZonerSmsGateway\Exceptions\ZonerSmsGatewayException
      * @expectedExceptionCode -123
      */
     public function throwsExceptionOnErrorCodeResponse()
