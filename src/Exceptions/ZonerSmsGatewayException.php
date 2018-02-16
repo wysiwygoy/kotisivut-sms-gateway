@@ -13,7 +13,7 @@ class ZonerSmsGatewayException extends \Exception
 
     public static function unexpectedHttpStatus(ResponseInterface $response)
     {
-        return new static('Zoner SMS-Gateway returned HTTP status '. $response->getStatusCode());
+        return new static('Zoner SMS-Gateway returned HTTP status '.$response->getStatusCode());
     }
 
     public static function usernameNotProvided()
@@ -36,8 +36,8 @@ class ZonerSmsGatewayException extends \Exception
         return new static('Message is empty.');
     }
 
-	public static function unknownZonerResponse($response)
-	{
-		return new static("Zoner SMS-Gateway returned unknown response: $response");
-	}
+    public static function unknownZonerResponse($response)
+    {
+        return new static("Zoner SMS-Gateway returned unknown response: $response");
+    }
 }
