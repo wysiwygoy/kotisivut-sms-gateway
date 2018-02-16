@@ -105,4 +105,26 @@ class ZonerSmsGateway
             throw ZonerSmsGatewayException::unexpectedHttpStatus($response);
         }
     }
+
+	/**
+	 * Returns the amount of credits left in the service, or whatever the service replies.
+	 *
+	 * @throws ZonerSmsGatewayException if request failed.
+	 */
+	public function getCredits()
+	{
+		$params = [
+			'username' => $this->username,
+			'password' => $this->password,
+		];
+
+		$response = $this->httpClient()->post( self::ENDPOINT_URL, [
+			'form_params' => $params,
+		]);
+		if ($response->getStatusCode() === 200) {
+			return $response->getBody();
+		} else {
+			throw ZonerSmsGatewayException::unexpectedHttpStatus($response);
+		}
+	}
 }
