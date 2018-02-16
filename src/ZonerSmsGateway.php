@@ -122,7 +122,7 @@ class ZonerSmsGateway
             'form_params' => $params,
         ]);
         if ($response->getStatusCode() === 200) {
-            return $response->getBody();
+            return (string) $response->getBody();
         } else {
             throw ZonerSmsGatewayException::unexpectedHttpStatus($response);
         }
