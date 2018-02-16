@@ -7,10 +7,10 @@ use NotificationChannels\ZonerSmsGateway\Exceptions\ZonerSmsGatewayException;
 
 class ZonerSmsGateway
 {
-	/** URL of the Zoner SMS-API service. */
-	const ENDPOINT_URL = 'https://sms.zoner.fi/sms.php';
+    /** URL of the Zoner SMS-API service. */
+    const ENDPOINT_URL = 'https://sms.zoner.fi/sms.php';
 
-	/** @var HttpClient HTTP Client */
+    /** @var HttpClient HTTP Client */
     protected $http;
 
     /** @var string|null Zoner SMS-API username. */
@@ -80,7 +80,7 @@ class ZonerSmsGateway
         if (empty($message)) {
             throw ZonerSmsGatewayException::emptyMessage();
         }
-	    $params = [
+        $params = [
             'username' => $this->username,
             'password' => $this->password,
             'numberto' => $receiver,
@@ -88,7 +88,7 @@ class ZonerSmsGateway
             'message' => utf8_decode($message),
         ];
 
-        $response = $this->httpClient()->post( self::ENDPOINT_URL, [
+        $response = $this->httpClient()->post(self::ENDPOINT_URL, [
             'form_params' => $params,
         ]);
         if ($response->getStatusCode() === 200) {
@@ -99,32 +99,32 @@ class ZonerSmsGateway
             } elseif ($statusAndCode[0] === 'ERR') {
                 throw ZonerSmsGatewayException::serviceRespondedWithAnError($statusAndCode[1]);
             } else {
-            	throw ZonerSmsGatewayException::unknownZonerResponse($statusAndCode);
+                throw ZonerSmsGatewayException::unknownZonerResponse($statusAndCode);
             }
         } else {
             throw ZonerSmsGatewayException::unexpectedHttpStatus($response);
         }
     }
 
-	/**
-	 * Returns the amount of credits left in the service, or whatever the service replies.
-	 *
-	 * @throws ZonerSmsGatewayException if request failed.
-	 */
-	public function getCredits()
-	{
-		$params = [
-			'username' => $this->username,
-			'password' => $this->password,
-		];
+    /**
+     * Returns the amount of credits left in the service, or whatever the service replies.
+     *
+     * @throws ZonerSmsGatewayException if request failed.
+     */
+    public function getCredits()
+    {
+        $params = [
+            'username' => $this->username,
+            'password' => $this->password,
+        ];
 
-		$response = $this->httpClient()->post( self::ENDPOINT_URL, [
-			'form_params' => $params,
-		]);
-		if ($response->getStatusCode() === 200) {
-			return $response->getBody();
-		} else {
-			throw ZonerSmsGatewayException::unexpectedHttpStatus($response);
-		}
-	}
+        $response = $this->httpClient()->post(self::ENDPOINT_URL, [
+            'form_params' => $params,
+        ]);
+        if ($response->getStatusCode() === 200) {
+            return $response->getBody();
+        } else {
+            throw ZonerSmsGatewayException::unexpectedHttpStatus($response);
+        }
+    }
 }
