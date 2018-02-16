@@ -2,6 +2,8 @@
 
 namespace NotificationChannels\ZonerSmsGateway\Exceptions;
 
+use Psr\Http\Message\ResponseInterface;
+
 class ZonerSmsGatewayException extends \Exception
 {
     public static function serviceRespondedWithAnError($code)
@@ -9,9 +11,9 @@ class ZonerSmsGatewayException extends \Exception
         return new static("Zoner SMS-Gateway returned error code $code", $code);
     }
 
-    public static function unexpectedHttpStatus($response)
+    public static function unexpectedHttpStatus(ResponseInterface $response)
     {
-        return new static('Zoner SMS-Gateway returned HTTP status '.$response->getStatusCode());
+        return new static('Zoner SMS-Gateway returned HTTP status '. $response->getStatusCode());
     }
 
     public static function usernameNotProvided()
@@ -33,4 +35,9 @@ class ZonerSmsGatewayException extends \Exception
     {
         return new static('Message is empty.');
     }
+
+	public static function unknownZonerResponse($response)
+	{
+		return new static("Zoner SMS-Gateway returned unknown response: $response");
+	}
 }

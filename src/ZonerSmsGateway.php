@@ -55,7 +55,7 @@ class ZonerSmsGateway
      * @param string|null $sender sender phone number (for example "35840123456")
      * or string (max 11 chars, a-ZA-Z0-9)
      *
-     * @return tracking number
+     * @return string tracking number
      *
      * @throws ZonerSmsGatewayException if sending failed.
      */
@@ -98,6 +98,8 @@ class ZonerSmsGateway
                 return $statusAndCode[1];
             } elseif ($statusAndCode[0] === 'ERR') {
                 throw ZonerSmsGatewayException::serviceRespondedWithAnError($statusAndCode[1]);
+            } else {
+            	throw ZonerSmsGatewayException::unknownZonerResponse($statusAndCode);
             }
         } else {
             throw ZonerSmsGatewayException::unexpectedHttpStatus($response);
