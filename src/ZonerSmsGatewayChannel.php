@@ -3,7 +3,7 @@
 namespace NotificationChannels\ZonerSmsGateway;
 
 use Illuminate\Notifications\Notification;
-use NotificationChannels\ZonerSmsGateway\Exceptions\CouldNotSendNotification;
+use NotificationChannels\ZonerSmsGateway\Exceptions\ZonerSmsGatewayException;
 
 class ZonerSmsGatewayChannel
 {
@@ -24,7 +24,7 @@ class ZonerSmsGatewayChannel
      * @param Notification $notification
      *
      * @return tracking number
-     * @throws CouldNotSendNotification
+     * @throws ZonerSmsGatewayException
      */
     public function send($notifiable, Notification $notification)
     {

@@ -2,7 +2,7 @@
 
 namespace NotificationChannels\ZonerSmsGateway\Exceptions;
 
-class CouldNotSendNotification extends \Exception
+class ZonerSmsGatewayException extends \Exception
 {
     public static function serviceRespondedWithAnError($code)
     {

@@ -3,11 +3,14 @@
 namespace NotificationChannels\ZonerSmsGateway;
 
 use GuzzleHttp\Client as HttpClient;
-use NotificationChannels\ZonerSmsGateway\Exceptions\CouldNotSendNotification;
+use NotificationChannels\ZonerSmsGateway\Exceptions\ZonerSmsGatewayException;
 
 class ZonerSmsGateway
 {
-    /** @var HttpClient HTTP Client */
+	/** URL of the Zoner SMS-API service. */
+	const ENDPOINT_URL = 'https://sms.zoner.fi/sms.php';
+
+	/** @var HttpClient HTTP Client */
     protected $http;
 
     /** @var string|null Zoner SMS-API username. */
@@ -54,32 +57,30 @@ class ZonerSmsGateway
      *
      * @return tracking number
      *
-     * @throws CouldNotSendNotification if sending failed.
+     * @throws ZonerSmsGatewayException if sending failed.
      */
     public function sendMessage($receiver, $message, $sender = null)
     {
         if (empty($this->username)) {
-            throw CouldNotSendNotification::usernameNotProvided();
+            throw ZonerSmsGatewayException::usernameNotProvided();
         }
 
         if (empty($receiver)) {
-            throw CouldNotSendNotification::receiverNotProvided();
+            throw ZonerSmsGatewayException::receiverNotProvided();
         }
 
         if (empty($sender)) {
             if (empty($this->sender)) {
-                throw CouldNotSendNotification::senderNotProvided();
+                throw ZonerSmsGatewayException::senderNotProvided();
             } else {
                 $sender = $this->sender;
             }
         }
 
         if (empty($message)) {
-            throw CouldNotSendNotification::emptyMessage();
+            throw ZonerSmsGatewayException::emptyMessage();
         }
-        $endPointUrl = 'https://sms.zoner.fi/sms.php';
-
-        $params = [
+	    $params = [
             'username' => $this->username,
             'password' => $this->password,
             'numberto' => $receiver,
@@ -87,7 +88,7 @@ class ZonerSmsGateway
             'message' => utf8_decode($message),
         ];
 
-        $response = $this->httpClient()->post($endPointUrl, [
+        $response = $this->httpClient()->post( self::ENDPOINT_URL, [
             'form_params' => $params,
         ]);
         if ($response->getStatusCode() === 200) {
@@ -96,10 +97,10 @@ class ZonerSmsGateway
             if ($statusAndCode[0] === 'OK') {
                 return $statusAndCode[1];
             } elseif ($statusAndCode[0] === 'ERR') {
-                throw CouldNotSendNotification::serviceRespondedWithAnError($statusAndCode[1]);
+                throw ZonerSmsGatewayException::serviceRespondedWithAnError($statusAndCode[1]);
             }
         } else {
-            throw CouldNotSendNotification::unexpectedHttpStatus($response);
+            throw ZonerSmsGatewayException::unexpectedHttpStatus($response);
         }
     }
 }
