@@ -8,7 +8,7 @@ use NotificationChannels\ZonerSmsGateway\Exceptions\ZonerSmsGatewayException;
 class ZonerSmsGateway
 {
     /** URL of the Zoner SMS-API service. */
-    const ENDPOINT_URL = 'https://sms.zoner.fi/sms.php';
+    const ENDPOINT_URL = 'https://zsms.labyrintti.com/sms.php';
 
     /** @var HttpClient HTTP Client */
     protected $http;
