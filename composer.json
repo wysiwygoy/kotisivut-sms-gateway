@@ -1,7 +1,7 @@
 {
-    "name": "laravel-notification-channels/zoner-sms-gateway",
-    "description": "Laravel notification channel for Zoner SMS-Gateway.",
-    "homepage": "https://github.com/laravel-notification-channels/zoner-sms-gateway",
+    "name": "laravel-notification-channels/kotisivut-sms-gateway",
+    "description": "Laravel notification channel for Kotisivut SMS-Gateway.",
+    "homepage": "https://github.com/laravel-notification-channels/kotisivut-sms-gateway",
     "license": "MIT",
     "authors": [
         {
@@ -24,13 +24,13 @@
     },
     "autoload": {
         "psr-4": {
-            "NotificationChannels\\ZonerSmsGateway\\": "src"
+            "NotificationChannels\\KotisivutSmsGateway\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NotificationChannels\\ZonerSmsGateway\\Test\\": "tests",
-            "NotificationChannels\\ZonerSmsGateway\\IntegrationTest\\": "tests-integration"
+            "NotificationChannels\\KotisivutSmsGateway\\Test\\": "tests",
+            "NotificationChannels\\KotisivutSmsGateway\\IntegrationTest\\": "tests-integration"
         }
     },
     "scripts": {

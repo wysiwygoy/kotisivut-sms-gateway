@@ -1,18 +1,18 @@
 <?php
 
-namespace NotificationChannels\ZonerSmsGateway;
+namespace NotificationChannels\KotisivutSmsGateway;
 
 use Illuminate\Notifications\Notification;
-use NotificationChannels\ZonerSmsGateway\Exceptions\ZonerSmsGatewayException;
+use NotificationChannels\KotisivutSmsGateway\Exceptions\KotisivutSmsGatewayException;
 
-class ZonerSmsGatewayChannel
+class KotisivutSmsGatewayChannel
 {
     /**
-     * @var ZonerSmsGateway
+     * @var KotisivutSmsGateway
      */
     protected $gateway;
 
-    public function __construct(ZonerSmsGateway $gateway)
+    public function __construct(KotisivutSmsGateway $gateway)
     {
         $this->gateway = $gateway;
     }
@@ -24,22 +24,22 @@ class ZonerSmsGatewayChannel
      * @param Notification $notification
      *
      * @return tracking number
-     * @throws ZonerSmsGatewayException
+     * @throws KotisivutSmsGatewayException
      */
     public function send($notifiable, Notification $notification)
     {
-        $message = $notification->toZonerSmsGateway($notifiable);
+        $message = $notification->toKotisivutSmsGateway($notifiable);
 
         if (is_string($message)) {
-            $message = new ZonerSmsGatewayMessage($message);
+            $message = new KotisivutSmsGatewayMessage($message);
         }
 
         // Use the receiver from message, if defined:
         $receiver = $message->receiver;
 
-        // Otherwise use the receiver given by notifiable routeNotificationForZonerSmsGateway:
-        if (empty($receiver) && method_exists($notifiable, 'routeNotificationForZonerSmsGateway')) {
-            $receiver = $notifiable->routeNotificationForZonerSmsGateway();
+        // Otherwise use the receiver given by notifiable routeNotificationForKotisivutSmsGateway:
+        if (empty($receiver) && method_exists($notifiable, 'routeNotificationForKotisivutSmsGateway')) {
+            $receiver = $notifiable->routeNotificationForKotisivutSmsGateway();
         }
 
         // Otherwise use the receiver given by notifiable generic routing method:

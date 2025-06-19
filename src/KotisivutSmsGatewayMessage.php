@@ -1,8 +1,8 @@
 <?php
 
-namespace NotificationChannels\ZonerSmsGateway;
+namespace NotificationChannels\KotisivutSmsGateway;
 
-class ZonerSmsGatewayMessage
+class KotisivutSmsGatewayMessage
 {
     /**
      * The message content.

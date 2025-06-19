@@ -1,23 +1,23 @@
-# Zoner SMS Gateway Notifications Channel for Laravel 5.4
+# Kotisivut SMS Gateway Notifications Channel for Laravel 5.4
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/zoner-sms-gateway.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/zoner-sms-gateway)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/kotisivut-sms-gateway.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/kotisivut-sms-gateway)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/wysiwygoy/zoner-sms-gateway/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/zoner-sms-gateway)
+[![Build Status](https://img.shields.io/travis/wysiwygoy/kotisivut-sms-gateway/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/kotisivut-sms-gateway)
 [![StyleCI](https://styleci.io/repos/113566911/shield)](https://styleci.io/repos/113566911)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/4206e715-184c-4d9f-90ce-cbd7a93a2a2d.svg?style=flat-square)](https://insight.sensiolabs.com/projects/4206e715-184c-4d9f-90ce-cbd7a93a2a2d)
-[![Quality Score](https://img.shields.io/scrutinizer/g/wysiwygoy/zoner-sms-gateway.svg?style=flat-square)](https://scrutinizer-ci.com/g/wysiwygoy/zoner-sms-gateway)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/wysiwygoy/zoner-sms-gateway/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/wysiwygoy/zoner-sms-gateway/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/zoner-sms-gateway.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/zoner-sms-gateway)
+[![Quality Score](https://img.shields.io/scrutinizer/g/wysiwygoy/kotisivut-sms-gateway.svg?style=flat-square)](https://scrutinizer-ci.com/g/wysiwygoy/kotisivut-sms-gateway)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/wysiwygoy/kotisivut-sms-gateway/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/wysiwygoy/kotisivut-sms-gateway/?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/kotisivut-sms-gateway.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/kotisivut-sms-gateway)
 
-This package makes it easy to send notifications using [Zoner SMS-Gateway](https://www.zoner.fi/sovelluspalvelut/sms-gateway/) 
-with Laravel 5.4. Zoner SMS-Gateway is mainly targeted for Finnish customers.
+This package makes it easy to send notifications using [Kotisivut SMS-Gateway](https://www.kotisivut.fi/sovelluspalvelut/sms-gateway/) 
+with Laravel 5.4. Kotisivut SMS-Gateway is mainly targeted for Finnish customers.
 
-This is an unofficial package and not developed or endorsed by Zoner.
+This is an unofficial package and not developed or endorsed by Kotisivut.
 
 ## Contents
 
 - [Installation](#installation)
-	- [Setting up the Zoner SMS-Gateway service](#setting-up-the-zoner-sms-gateway-service)
+	- [Setting up the Kotisivut SMS-Gateway service](#setting-up-the-kotisivut-sms-gateway-service)
 - [Usage](#usage)
 	- [Available Message methods](#available-message-methods)
 - [Changelog](#changelog)
@@ -33,7 +33,7 @@ This is an unofficial package and not developed or endorsed by Zoner.
 (Once we get it there) You can install the package via composer:
 
 ``` bash
-composer require laravel-notification-channels/zoner-sms-gateway
+composer require laravel-notification-channels/kotisivut-sms-gateway
 ```
 
 You must install the service provider:
@@ -42,34 +42,34 @@ You must install the service provider:
 // config/app.php
 'providers' => [
     ...
-    NotificationChannels\ZonerSmsGateway\ZonerSmsGatewayServiceProvider::class,
+    NotificationChannels\KotisivutSmsGateway\KotisivutSmsGatewayServiceProvider::class,
 ],
 ```
 
-### Setting up the Zoner SMS-Gateway service
+### Setting up the Kotisivut SMS-Gateway service
 
-In order to use [Zoner SMS-Gateway](https://www.zoner.fi/sovelluspalvelut/sms-gateway/) service
+In order to use [Kotisivut SMS-Gateway](https://www.kotisivut.fi/sovelluspalvelut/sms-gateway/) service
 you need to have an account and some
-[credits](https://www.zoner.fi/store/sovellukset/sms-krediitit/) on the account. 
+[credits](https://www.kotisivut.fi/store/sovellukset/sms-krediitit/) on the account. 
 
-Then, configure your Zoner SMS-Gateway credentials:
+Then, configure your Kotisivut SMS-Gateway credentials:
 
 ```php
 // config/services.php
 ...
-'zoner-sms-gateway' => [
-    'username' => env('ZONER_USERNAME'),
-    'password' => env('ZONER_PASSWORD'),
-    'sender' => env('ZONER_SENDER'), // Default sender number or name
+'kotisivut-sms-gateway' => [
+    'username' => env('KOTISIVUT_USERNAME'),
+    'password' => env('KOTISIVUT_PASSWORD'),
+    'sender' => env('KOTISIVUT_SENDER'), // Default sender number or name
 ],
 ...
 ```
 
 ```bash
 # .env
-ZONER_USERNAME=myusername
-ZONER_PASSWORD=mypassword
-ZONER_SENDER=mysender
+KOTISIVUT_USERNAME=myusername
+KOTISIVUT_PASSWORD=mypassword
+KOTISIVUT_SENDER=mysender
 ```
 
 ## Usage
@@ -77,20 +77,20 @@ ZONER_SENDER=mysender
 You can now use the channel in your `via()` method inside the Notification class.
 
 ```php
-use NotificationChannels\ZonerSmsGateway\ZonerSmsGatewayChannel;
-use NotificationChannels\ZonerSmsGateway\ZonerSmsGatewayMessage;
+use NotificationChannels\KotisivutSmsGateway\KotisivutSmsGatewayChannel;
+use NotificationChannels\KotisivutSmsGateway\KotisivutSmsGatewayMessage;
 use Illuminate\Notifications\Notification;
 
 class InvoicePaid extends Notification
 {
     public function via($notifiable)
     {
-        return [ZonerSmsGatewayChannel::class];
+        return [KotisivutSmsGatewayChannel::class];
     }
 
-    public function toZonerSmsGateway($notifiable)
+    public function toKotisivutSmsGateway($notifiable)
     {
-        return new ZonerSmsGatewayMessage('One of your invoices has been paid!');
+        return new KotisivutSmsGatewayMessage('One of your invoices has been paid!');
     }
 }
 ```
@@ -99,20 +99,20 @@ class InvoicePaid extends Notification
 
 You can define a receiver of the message in different ways (listed in order of priority):
 
-1. Set the receiver in the message (in `toZonerSmsGateway` method of your Notification):
+1. Set the receiver in the message (in `toKotisivutSmsGateway` method of your Notification):
 
     ```php
-        public function toZonerSmsGateway($notifiable)
+        public function toKotisivutSmsGateway($notifiable)
         {
-            return new ZonerSmsGatewayMessage('One of your invoices has been paid!')
+            return new KotisivutSmsGatewayMessage('One of your invoices has been paid!')
                 ->receiver('3580123456789');
         }
     ```
 
-2. Define the receiver with `routeNotificationForZonerSmsGateway` method in your Notifiable:
+2. Define the receiver with `routeNotificationForKotisivutSmsGateway` method in your Notifiable:
 
     ```php
-        public function routeNotificationForZonerSmsGateway()
+        public function routeNotificationForKotisivutSmsGateway()
         {
             return $this->phone;
         }
@@ -146,9 +146,9 @@ $ composer test tests-integration
 ```
 
 This expects a `tests-integration/.env` file with 
-`ZONER_USERNAME`, `ZONER_PASSWORD` and `ZONER_TEST_RECEIVER` variables defined.
+`KOTISIVUT_USERNAME`, `KOTISIVUT_PASSWORD` and `KOTISIVUT_TEST_RECEIVER` variables defined.
 
-The test sends a real SMS message via Zoner SMS-Gateway, so it uses your credits.
+The test sends a real SMS message via Kotisivut SMS-Gateway, so it uses your credits.
 Be careful with the receiver phone number.
 
 ## Security
