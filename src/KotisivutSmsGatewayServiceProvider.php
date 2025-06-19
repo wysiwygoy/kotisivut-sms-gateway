@@ -17,8 +17,7 @@ class KotisivutSmsGatewayServiceProvider extends ServiceProvider
                 $kotisivutSmsGatewayConfig = config('services.kotisivut-sms-gateway');
 
                 return new KotisivutSmsGateway(
-                    $kotisivutSmsGatewayConfig['username'],
-                    $kotisivutSmsGatewayConfig['password'],
+                    $kotisivutSmsGatewayConfig['apikey'],
                     $kotisivutSmsGatewayConfig['sender']
                 );
             });
