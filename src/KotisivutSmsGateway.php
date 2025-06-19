@@ -75,6 +75,12 @@ class KotisivutSmsGateway
         if (empty($message)) {
             throw KotisivutSmsGatewayException::emptyMessage();
         }
+
+        // Convert receiver to international format if needed
+        if (preg_match('/^0/', $receiver)) {
+            $receiver = '+358' . substr($receiver, 1);
+        }
+
         $headers = [
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $this->apiKey,
