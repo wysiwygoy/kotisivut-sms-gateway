@@ -8,7 +8,7 @@ use NotificationChannels\KotisivutSmsGateway\Exceptions\KotisivutSmsGatewayExcep
 class KotisivutSmsGateway
 {
     /** URL of the Kotisivut SMS-API service. */
-    const ENDPOINT_URL = 'api.messagecloud.fi/v1/';
+    const ENDPOINT_URL = 'https://smsgw-api.kotisivut.com/v1/';
 
     /** @var HttpClient HTTP Client */
     protected $http;
