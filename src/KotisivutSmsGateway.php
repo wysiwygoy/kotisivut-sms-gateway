@@ -4,6 +4,7 @@ namespace NotificationChannels\KotisivutSmsGateway;
 
 use GuzzleHttp\Client as HttpClient;
 use NotificationChannels\KotisivutSmsGateway\Exceptions\KotisivutSmsGatewayException;
+use Illuminate\Support\Facades\Log;
 
 class KotisivutSmsGateway
 {
@@ -87,23 +88,28 @@ class KotisivutSmsGateway
             'Content-Type: application/json'
         ];
 
+        $body = json_encode([
+            'messages' => [
+                [
+                    'from' => $sender,
+                    'destinations' => array([
+                        'to' => $receiver
+                    ]),
+                    'text' => $message,
+                ],
+            ],
+        ]);
+        Log::debug("request $body");
+
         $response = $this->httpClient()->post(self::ENDPOINT_URL, [
             'headers' => $headers,
-            'body' => json_encode([
-                'messages' => [
-                    [
-                        'from' => $sender,
-                        'destinations' => [
-                            'to' => $receiver
-                        ],
-                        'text' => $message,
-                    ],
-                ],
-            ]),
+            'body' => $body,
         ]);
         if ($response->getStatusCode() === 200) {
+            Log::debug("response " . $response->getStatusCode() . ": " . $response->getBody());
             return $response->getBody();
         } else {
+            Log::error("response " . $response->getStatusCode() . ": " . $response->getBody());
             throw KotisivutSmsGatewayException::unexpectedHttpStatus($response);
         }
     }
